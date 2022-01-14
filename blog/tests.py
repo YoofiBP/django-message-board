@@ -32,3 +32,22 @@ class BlogTests(TestCase):
         self.assertEqual(resp.status_code, 200)
         no_resp = self.client.get('/blog/post/50/')
         self.assertEqual(no_resp.status_code, 404)
+
+    def test_get_absolute_url(self):
+        url = self.post.get_absolute_url()
+        self.assertEqual('/blog/post/1/', url)
+
+    def test_post_create_view(self):
+        res = self.client.get(reverse('blog:store'))
+        self.assertEqual(res.status_code, 200)
+        self.assertTemplateUsed(res, 'blog/store.html')
+
+    def test_post_update_view(self):
+        res = self.client.get(reverse('blog:update', args=[str(self.post.pk)]))
+        self.assertEqual(res.status_code, 200)
+        self.assertTemplateUsed(res, 'blog/store.html')
+
+    def test_post_delete_view(self):
+        res = self.client.get(reverse('blog:delete', args=[str(self.post.pk)]))
+        self.assertEqual(res.status_code, 200)
+        self.assertTemplateUsed(res, 'blog/delete.html')

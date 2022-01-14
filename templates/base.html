@@ -7,7 +7,12 @@
     </head>
     <body>
         <header>
+            <div class="nav-left">
             <h1><a href="{% url 'blog:index' %}">Django App</a></h1>
+        </div>
+        <div class="nav-right">
+            <a href="{% url 'blog:store' %}">New Blog Post</a>
+        </div>
         </header>
         <div>
             {%block content%}
